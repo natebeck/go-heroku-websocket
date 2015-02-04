@@ -5,6 +5,8 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strconv"
+	"time"
 
 	"github.com/gorilla/websocket"
 )
@@ -14,14 +16,14 @@ var connections map[*websocket.Conn]bool
 func main() {
 
 	// Start the Web Server
-	StartWebServer()
+	go StartWebServer()
 
-	// count := 0
-	// for {
-	// 	count++
-	// 	sendAll([]byte("Test: " + strconv.Itoa(count)))
-	// 	time.Sleep(5000 * time.Millisecond)
-	// }
+	count := 0
+	for {
+		count++
+		sendAll([]byte("Test: " + strconv.Itoa(count)))
+		time.Sleep(5000 * time.Millisecond)
+	}
 }
 
 func sendAll(msg []byte) {
