@@ -5,8 +5,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"strconv"
-	"time"
 
 	"github.com/gorilla/websocket"
 )
@@ -16,14 +14,14 @@ var connections map[*websocket.Conn]bool
 func main() {
 
 	// Start the Web Server
-	go StartWebServer()
+	StartWebServer()
 
-	count := 0
-	for {
-		count++
-		sendAll([]byte("Test: " + strconv.Itoa(count)))
-		time.Sleep(5000 * time.Millisecond)
-	}
+	// count := 0
+	// for {
+	// 	count++
+	// 	sendAll([]byte("Test: " + strconv.Itoa(count)))
+	// 	time.Sleep(5000 * time.Millisecond)
+	// }
 }
 
 func sendAll(msg []byte) {
@@ -47,18 +45,6 @@ func wsHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	log.Println("Succesfully upgraded connection")
 	connections[conn] = true
-
-	for {
-		// Blocks until a message is read
-		_, msg, err := conn.ReadMessage()
-		if err != nil {
-			delete(connections, conn)
-			conn.Close()
-			return
-		}
-		log.Println(string(msg))
-		sendAll(msg)
-	}
 }
 
 func StartWebServer() {
