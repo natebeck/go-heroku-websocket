@@ -14,7 +14,8 @@
   <script>
 
   $(function() {
-    var conn = new WebSocket("ws://localhost:3000/feed");
+    var host = location.hostname;
+    var conn = new WebSocket("wss://"+host+"/feed");
 
     // called when the server closes the connection
     conn.onclose = function(e) {
