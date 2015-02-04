@@ -61,7 +61,7 @@ func StartWebServer() {
 
 	log.Printf("Web Service Running on port %s\n", port)
 
-	addr := fmt.Sprintf("127.0.0.1:%s", port)
+	addr := fmt.Sprintf(":%s", port)
 	// this call blocks -- the progam runs here forever
 	err := http.ListenAndServe(addr, nil)
 	fmt.Println(err.Error())
